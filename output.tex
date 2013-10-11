@@ -1,0 +1,124 @@
+\documentclass{article}
+
+%%%%%%%%%%%%%%%%%
+% general styling
+% allow us to have more flexible argument lists
+\usepackage{xargs}
+
+% alter page layout from default margins/sizes
+\usepackage{geometry}
+\geometry{
+  letterpaper,
+  tmargin    = 1.25cm,
+  bmargin    = 1.25cm,
+  lmargin    = 2.5cm,
+  rmargin    = 2.5cm,
+  headheight = 0cm,
+  headsep    = 0cm,
+  footskip   = 0.75cm
+}
+
+% change footer; remove page numbering, use fancyhdr (stripping default style
+% and removing the header and footer rules)
+\pagenumbering{gobble}
+\usepackage{fancyhdr} \pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0cm} \renewcommand{\footrulewidth}{0cm}
+
+% allow us to alter some colors
+\usepackage[usenames]{xcolor}
+
+%%%%%%%%%%%%%%%
+% CTAN packages
+% easily change margins
+\usepackage{changepage}
+
+%%%%%%%%%%%%%%
+% size styling
+\newcommand{\vpad     }{0.50cm}
+\newcommand{\hpad     }{0.50cm}
+\newcommand{\thickline}{0.10cm}
+\newcommand{\exmargin }{1.25cm}
+
+%%%%%%%%%%%%%%%%%%
+% general commands
+\newcommand{\headline}[1]{%
+    \addvspace{\vpad}%
+    { \noindent \huge #1 \hrulefill \par }%
+    \addvspace{\vpad}%
+}
+
+\newcommand{\leftHeadline }[1]{{\Large \noindent \hspace{\hpad} #1 \hfill}}
+\newcommand{\rightHeadline}[1]{{\it \large #1 \hspace{\hpad} \par}}
+
+\newcommand{\centerHeadline}[1]{%
+    {%
+        \setlength{\abovedisplayshortskip}{0cm}\setlength{\topsep}{0cm}%
+        \begin{center} \it \small #1 \end{center}%
+        \par%
+    }%
+}
+
+%%%%%%%%%%
+% sections
+\newcommand{\stp}{\addvspace{\vpad} \begin{adjustwidth}{\exmargin}{\exmargin}}
+\newcommand{\etp}{\end{adjustwidth}\addvspace{\vpad}}
+\newenvironment{thinpara}{\stp}{\etp}
+
+\newenvironment{details}{%
+    % reference link just goes bottom center.
+    \newcommand{\repo}[1]{\fancyfoot[C]{\color{gray} ##1}}%
+    \newcommand{\name}[1]{%
+        % set the left footer
+        \fancyfoot[L]{\color{gray} ##1}%
+        % big text with a line underneath it
+        { \Huge ##1 \\ \rule{\linewidth}{\thickline} }%
+    }%
+    \newcommand{\address}[1]{%
+        % address stuff on its own line
+        ##1 \\%
+    }
+    \newcommand{\phone}[1]{%
+        % phone stuff on its own line
+        ##1 \\%
+    }
+    \newcommandx{\email}[3][3=com]{%
+        % set the right footer
+        \fancyfoot[R]{\color{gray} ##1@##2.##3}%
+        % email winds up on its own line but we don't have to be fancy about
+        % it, everything else takes care of it for us that already
+        ##1@##2.##3%
+    }%
+    \begin{center}%
+}{\end{center}}
+
+\newenvironment{objective}{\headline{Objective}\stp}{\etp}
+
+\newenvironment{jobs}{%
+    \newcommand{\jobTitle      }[1]{\leftHeadline  {##1}               }%
+    \newcommand{\jobCompany    }[1]{\rightHeadline {##1}               }%
+    \newcommand{\jobDuration   }[2]{\centerHeadline{##1 -- ##2}        }%
+    \newcommand{\jobDescription}[1]{\begin{thinpara} ##1 \end{thinpara}}%
+    \headline{Recent Work History}%
+}{}
+
+\newenvironment{skills}{%
+    \newenvironment{skillCategory}[1]{%
+        \newcommand{\skill}[1]{\item ####1}%
+        \leftHeadline{##1} \par \stp \begin{itemize}%
+    }{\end{itemize}\etp}%
+    \headline{Skills}%
+}{}
+
+\newenvironment{education}{%
+    \newcommand{\educationDegree}[1]{\leftHeadline  {##1}}%
+    \newcommand{\educationSchool}[1]{\rightHeadline {##1}}%
+    \newcommand{\educationDate  }[1]{\centerHeadline{##1}}%
+    \newenvironment{educationAchievements}{%
+        \newcommand{\educationAchievement}[1]{\item ####1}%
+        \stp \begin{itemize}%
+    }{\end{itemize}\etp}%
+    \headline{Education}%
+}{}
+
+\begin{document}\sf\input{resume.tex}\end{document}
