@@ -104,17 +104,15 @@
 \newenvironment{objective}{\mainHeadline{Objective}\stp}{\etp}
 
 \newenvironment{jobs}{%
-    \newenvironment{job}{%
+    \newenvironment{job}[2]{%
         % just store these values as someone fills them out
-        \newcommand{\position}[1]{\renewcommand{\CJT}{####1}}%
-        \newcommand{\duration}[2]{\renewcommand{\CJD}{####1 -- ####2}}%
-        \newcommand{\company }[1]{\renewcommand{\CJC}{####1}}%
-        \newcommand{\feats   }[1]{\renewcommand{\CJF}{####1}}%
+        \newcommand{\duration       }[2]{\renewcommand{\CJD}{####1 -- ####2}}%
+        \newcommand{\accomplishments}[1]{\renewcommand{\CJF}{####1}}%
         % initialize variables
-        \newcommand{\CJT}{}% Current Job Title
-        \newcommand{\CJD}{}% Current Job Duration
-        \newcommand{\CJC}{}% Current Job Company
-        \newcommand{\CJF}{}% Current Job Feats (syn. accomplishments)
+        \newcommand{\CJT}{##1}% Current Job Title
+        \newcommand{\CJD}   {}% Current Job Duration
+        \newcommand{\CJC}{##2}% Current Job Company
+        \newcommand{\CJF}   {}% Current Job Accomplishments
     }{%
         % actually output the end result after all is said and done
         \subHeadline{\CJT}{\CJD}{\CJC}%
@@ -135,10 +133,8 @@
 }{}
 
 \newenvironment{education}{%
-    \newenvironment{degree}{%
-        \newcommand{\qualification}[1]{\renewcommand{\CDQ}{####1}}%
-        \newcommand{\received     }[1]{\renewcommand{\CDR}{####1}}%
-        \newcommand{\school       }[1]{\renewcommand{\CDS}{####1}}%
+    \newenvironment{degree}[2]{%
+        \newcommand{\received}[1]{\renewcommand{\CDR}{####1}}%
         % now this gets a little hairy. Every new achievement has to redefine
         % the \CDA macro, so we have to dig into TeX guts a bit here, using
         % \expandafter to force macro expansion *prior* to definitions.
@@ -146,12 +142,12 @@
             \expandafter\def\expandafter\CDA\expandafter{\CDA\item{####1}}%
         }%
         % initialize the variable
-        \newcommand{\CDQ}{}% Current Degree Qualification
-        \newcommand{\CDR}{}% Current Degree Received
-        \newcommand{\CDS}{}% Current Degree School
-        \newcommand{\CDA}{}% Current Degree Achievements
+        \newcommand{\CD }{##1}% Current Degree
+        \newcommand{\CDR}   {}% Current Degree Received
+        \newcommand{\CDS}{##2}% Current Degree School
+        \newcommand{\CDA}   {}% Current Degree Achievements
     }{%
-        \subHeadline{\CDQ}{\CDR}{\CDS}%
+        \subHeadline{\CD}{\CDR}{\CDS}%
         \begin{thinpara}\begin{itemize}\CDA\end{itemize}\end{thinpara}%
     }%
 }{}
