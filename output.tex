@@ -82,14 +82,14 @@
     \newcommand{\PHONE  }{}%
     \newcommand{\EMAIL  }{}%
 }{%
+    % set the footers - this requires a bit of \expandafter magic because
+    % normally you can't access macros inside of \fancyfoot elements, so we've
+    % got to pre-expand them.
+    \expandafter \setleftfooter   \expandafter{\NAME }%
+    \expandafter \setcenterfooter \expandafter{\REPO }%
+    \expandafter \setrightfooter  \expandafter{\EMAIL}%
     % output the properly-formatted end results
     \begin{center}%
-        % set the footers - this requires a bit of \expandafter magic because
-        % normally you can't access macros inside of \fancyfoot elements, so
-        % we've got to pre-expand them.
-        \expandafter \setleftfooter   \expandafter{\NAME }%
-        \expandafter \setcenterfooter \expandafter{\REPO }%
-        \expandafter \setrightfooter  \expandafter{\EMAIL}%
         % display the info, each element on its own line (name gets its own
         % special heading, with a nice thick line under it)
         { \Huge \NAME \\ \rule{\linewidth}{\thickline} }%
