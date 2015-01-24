@@ -1,12 +1,17 @@
 \begin{details}
     \name{Stephen Belcher}
     % include some dynamically-generated data too.
-    \immediate\write18{./output-details.bash}\input{outputs/details.tex}
+    \immediate\write18{test -x output-details.bash && ./output-details.bash}
+    \input{outputs/details.tex}
     \email{sbelcher+jobs}{gmail}
     \repo {https://github.com/sycobuny/resume}
 \end{details}
 
 \begin{objective}
+    % mention design and develop before learning
+    % don't say "facilitate" cause I actually do stuff not make it easier
+    % hit on "three d"s: design, develop, document
+    % enterprise?
     To obtain positions which would enable continued learning, sharing of new
     knowledge, and growth in the technical community, as well as facilitate
     the development of new software and technologies.
@@ -14,6 +19,8 @@
 
 \begin{skills}
     \begin{category}{Computer Languages}
+        % mention cloud software like Heroku's development platform
+        % mention "Object-Oriented Design and Programming"
         \skill{
             Ruby, including extensive experience with Ruby on Rails,
             Sinatra/Padrino, and wxRuby.
@@ -92,6 +99,9 @@
     \begin{job}{Programmer}{Kelly Services, Inc.}
         \duration{December 2011}{Present}
         \accomplishments{
+            % re-order so "new features" is first thing mentioned
+            % possible "three d" reference point?
+            % research scientists for the National Institute on Aging
             Responsible for maintaining large-scale existing web applications
             using various languages, such as Ruby, Python, PHP and Perl, and
             database engines, such as PostgreSQL and MySQL. This includes
@@ -103,6 +113,7 @@
             estimates, and develop using modern practices to ensure ease of
             future maintenance.
 
+            % initiated the good practices.
             Fostered a culture of good practices, including use of revision
             control for projects and development of open-souce tools to
             increase re-usability of software. Also encouraged strong
