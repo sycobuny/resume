@@ -16,7 +16,7 @@ state=${state:-MD}
 
 # if we have enough to build it, put the whole address in there; otherwise,
 # just the city and state (which we should have as a bare minimum)
-if [[ -n "$street" ]] && [[ -n "$zip" ]]; then
+if [ -n "$street" ] && [ -n "$zip" ]; then
     address="$street, $city, $state $zip"
 else
     address="$city, $state"
@@ -25,7 +25,7 @@ fi
 # address goes in the resume, whatever that wound up being
 echo "\\address{$address}" > $file
 
-# phone number only goes in if we got one
-if [[ "x$phone" != 'x' ]]; then
+# same deal with the phone.
+if [ -n "$phone" ]; then
     echo "\\phone{$phone}" >> $file
 fi

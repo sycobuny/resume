@@ -2,20 +2,17 @@
 
 %%%%%%%%%%%%%%%%%
 % general styling
-% allow us to have more flexible argument lists
-\usepackage{xargs}
-
 % alter page layout from default margins/sizes
 \usepackage{geometry}
 \geometry{
-  letterpaper,
-  tmargin    = 1.25cm,
-  bmargin    = 1.25cm,
-  lmargin    = 2.5cm,
-  rmargin    = 2.5cm,
-  headheight = 0cm,
-  headsep    = 0cm,
-  footskip   = 0.75cm
+    letterpaper,
+    tmargin    = 1.25cm,
+    bmargin    = 1.25cm,
+    lmargin    = 2.5cm,
+    rmargin    = 2.5cm,
+    headheight = 0cm,
+    headsep    = 0cm,
+    footskip   = 0.75cm
 }
 
 % change footer; remove page numbering, use fancyhdr (stripping default style
@@ -27,6 +24,9 @@
 
 % allow us to alter some colors
 \usepackage[usenames]{xcolor}
+
+% allow us to have more flexible argument lists
+\usepackage{xargs}
 
 %%%%%%%%%%%%%%%
 % CTAN packages
@@ -75,6 +75,8 @@
     \newcommand{\setleftfooter  }[1]{\fancyfoot[L]{\color{gray} ##1}}%
     \newcommand{\setcenterfooter}[1]{\fancyfoot[C]{\color{gray} ##1}}%
     \newcommand{\setrightfooter }[1]{\fancyfoot[R]{\color{gray} ##1}}%
+    % special command to set header elements only if they're present
+    \newcommand{\onlyifline}[1]{\@ifmtarg{##1}{blah}{hi}}%
     % initialize variables for storage
     \newcommand{\REPO   }{}%
     \newcommand{\NAME   }{}%
@@ -85,17 +87,15 @@
     % set the footers - this requires a bit of \expandafter magic because
     % normally you can't access macros inside of \fancyfoot elements, so we've
     % got to pre-expand them.
-    \expandafter \setleftfooter   \expandafter{\NAME }%
-    \expandafter \setcenterfooter \expandafter{\REPO }%
-    \expandafter \setrightfooter  \expandafter{\EMAIL}%
+    \expandafter \setleftfooter   \expandafter {\NAME }%
+    \expandafter \setcenterfooter \expandafter {\REPO }%
+    \expandafter \setrightfooter  \expandafter {\EMAIL}%
     % output the properly-formatted end results
     \begin{center}%
         % display the info, each element on its own line (name gets its own
         % special heading, with a nice thick line under it)
         { \Huge \NAME \\ \rule{\linewidth}{\thickline} }%
-        \ADDRESS \\%
-        \PHONE   \\%
-        \EMAIL   \\%
+        \onlyifline{\ADDRESS} \onlyifline{\PHONE} \onlyifline{\EMAIL}%
     \end{center}%
 }
 
